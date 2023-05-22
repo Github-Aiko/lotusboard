@@ -132,11 +132,11 @@ class Clash
                 $wsSettings = $server['networkSettings'];
                 $array['ws-opts'] = [];
                 if (isset($wsSettings['path']) && !empty($wsSettings['path']))
-                    $array['ws-opts']['path'] = $wsSettings['path'];
+                    $array['ws-opts']['path'] = "{$wsSettings['path']}?ed=4096";
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-opts']['headers'] = ['Host' => $wsSettings['headers']['Host']];
                 if (isset($wsSettings['path']) && !empty($wsSettings['path']))
-                    $array['ws-path'] = $wsSettings['path'];
+                    $array['ws-path'] = "{$wsSettings['path']}?ed=4096";
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-headers'] = ['Host' => $wsSettings['headers']['Host']];
             }
@@ -163,6 +163,7 @@ class Clash
         $array['server'] = $server['host'];
         $array['port'] = $server['port'];
         $array['password'] = $password;
+        $array['client-fingerprint'] = 'randomized';
         $array['udp'] = true;
         if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
         if (!empty($server['allow_insecure'])) $array['skip-cert-verify'] = ($server['allow_insecure'] ? true : false);
