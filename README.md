@@ -14,7 +14,7 @@ Vmess
 
 Subscription:
 
- - ClashVPN mode profile (Proxy all traffic except local and icmp), add &flag=clashvpn to fetch it
+ - ClashVPN mode profile (Proxy all traffic except local and icmp), add &flag=gclh to fetch it
 
  - Simplified the default clash config
 
