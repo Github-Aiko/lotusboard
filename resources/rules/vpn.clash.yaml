@@ -2,6 +2,7 @@ mixed-port: 7890
 allow-lan: false
 mode: rule
 log-level: info
+global-client-fingerprint: chrome
 ipv6: true
 proxies:
 

@@ -117,7 +117,6 @@ class Clash
         if ($server['tls']) {
             $array['tls'] = true;
             $array['cipher'] = 'zero';
-            $array['client-fingerprint'] = 'randomized';
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
                 if (isset($tlsSettings['allowInsecure']) && !empty($tlsSettings['allowInsecure']))
@@ -163,7 +162,6 @@ class Clash
         $array['server'] = $server['host'];
         $array['port'] = $server['port'];
         $array['password'] = $password;
-        $array['client-fingerprint'] = 'randomized';
         $array['udp'] = true;
         if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
         if (!empty($server['allow_insecure'])) $array['skip-cert-verify'] = ($server['allow_insecure'] ? true : false);
