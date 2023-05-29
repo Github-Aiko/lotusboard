@@ -75,7 +75,7 @@ class GCLH
         }
 
         $yaml = Yaml::dump($config, 2, 4, Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
-        $yaml = str_replace('app_name', config('v2board.app_name', 'V2Board'), $yaml);
+        $yaml = str_replace('$app_name', config('v2board.app_name', 'V2Board'), $yaml);
         return $yaml;
     }
 
