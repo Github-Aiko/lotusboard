@@ -7,12 +7,6 @@ global-client-fingerprint: chrome
 proxy-groups:
     - { name: Switcher, type: select, proxies: ['Auto'] }
     - { name: Auto, type: fallback, proxies: [], url: "http://cp.cloudflare.com/", interval: 7200 }
-sniffer:
-  enable: true
-  override-destination: true
-  sniffing:
-    - tls
-    - http
 dns:
     enable: true
     listen: 0.0.0.0:8853
