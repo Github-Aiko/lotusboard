@@ -11,6 +11,7 @@ Vmess
  - TLS fingerprint, randomized by default
  - Websocket ed4096(0rtt enabled for xray)
  - Subscription info was translated into English
+ - Auto zero encryption when TLS enabled **This is bascially VLESS**
 
 Subscription:
 
