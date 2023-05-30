@@ -12,9 +12,8 @@ proxy-groups:
 dns:
     enable: true
     listen: 0.0.0.0:8853
-    enhanced-mode: fake-ip
-    fake-ip-range: 198.18.0.1/16
-    nameserver: ['https://1.1.1.1/dns-query', 'dhcp://en0']
+    enhanced-mode: redir-host
+    nameserver: ['1.1.1.1', 'https://1.1.1.1/dns-query', 'dhcp://en0']
     ipv6: true
 rules:
     - 'DOMAIN-SUFFIX,local,DIRECT'
