@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Client\Protocols;
 use App\Utils\Helper;
 use Symfony\Component\Yaml\Yaml;
 
-class Clash
+class GCLH
 {
-    public $flag = 'clash';
+    public $flag = 'gclh';
     private $servers;
     private $user;
 
@@ -25,8 +25,8 @@ class Clash
         header("subscription-userinfo: upload={$user['u']}; download={$user['d']}; total={$user['transfer_enable']}; expire={$user['expired_at']}");
         header('profile-update-interval: 24');
         header("content-disposition:attachment;filename*=UTF-8''".rawurlencode($appName));
-        $defaultConfig = base_path() . '/resources/rules/default.clash.yaml';
-        $customConfig = base_path() . '/resources/rules/custom.clash.yaml';
+        $defaultConfig = base_path() . '/resources/rules/vpn.clash.yaml';
+        $customConfig = base_path() . '/resources/rules/customvpn.clash.yaml';
         if (\File::exists($customConfig)) {
             $config = Yaml::parseFile($customConfig);
         } else {

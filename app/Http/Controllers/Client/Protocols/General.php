@@ -74,6 +74,8 @@ class General
             "tls" => $server['tls'] ? "tls" : "",
         ];
         if ($server['tls']) {
+            $config['fp'] = "randomized";
+            $config['scy'] = "zero";
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
                 if (isset($tlsSettings['serverName']) && !empty($tlsSettings['serverName']))
@@ -87,7 +89,7 @@ class General
         }
         if ((string)$server['network'] === 'ws') {
             $wsSettings = $server['networkSettings'];
-            if (isset($wsSettings['path'])) $config['path'] = $wsSettings['path'];
+            if (isset($wsSettings['path'])) $config['path'] = "{$wsSettings['path']}?ed=4096";
             if (isset($wsSettings['headers']['Host'])) $config['host'] = $wsSettings['headers']['Host'];
         }
         if ((string)$server['network'] === 'grpc') {
@@ -104,6 +106,7 @@ class General
             'allowInsecure' => $server['allow_insecure'],
             'peer' => $server['server_name'],
             'sni' => $server['server_name']
+            'fp' => "randomized"
         ]);
         $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?{$query}#{$name}";
         $uri .= "\r\n";
