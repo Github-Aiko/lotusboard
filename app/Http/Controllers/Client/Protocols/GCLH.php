@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client\Protocols;
 use App\Utils\Helper;
 use Symfony\Component\Yaml\Yaml;
 
-class Clash
+class GCLH
 {
     public $flag = 'gclh';
     private $servers;
