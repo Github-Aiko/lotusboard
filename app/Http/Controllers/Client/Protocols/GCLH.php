@@ -140,11 +140,11 @@ class GCLH
                 $wsSettings = $server['networkSettings'];
                 $array['ws-opts'] = [];
                 if (isset($wsSettings['path']) && !empty($wsSettings['path']))
-                    $array['ws-opts']['path'] = "{$wsSettings['path']}?ed=4096";
+                    $array['ws-opts']['path'] = "${wsSettings['path']}?ed=4096";
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-opts']['headers'] = ['Host' => $wsSettings['headers']['Host']];
                 if (isset($wsSettings['path']) && !empty($wsSettings['path']))
-                    $array['ws-path'] = "{$wsSettings['path']}?ed=4096";
+                    $array['ws-path'] = "${wsSettings['path']}?ed=4096";
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-headers'] = ['Host' => $wsSettings['headers']['Host']];
             }

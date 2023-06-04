@@ -89,7 +89,7 @@ class General
         }
         if ((string)$server['network'] === 'ws') {
             $wsSettings = $server['networkSettings'];
-            if (isset($wsSettings['path'])) $config['path'] = "{$wsSettings['path']}?ed=4096";
+            if (isset($wsSettings['path'])) $config['path'] = "${wsSettings['path']}?ed=4096";
             if (isset($wsSettings['headers']['Host'])) $config['host'] = $wsSettings['headers']['Host'];
         }
         if ((string)$server['network'] === 'grpc') {
