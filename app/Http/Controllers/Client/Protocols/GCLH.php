@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client\Protocols;
 use App\Utils\Helper;
 use Symfony\Component\Yaml\Yaml;
 
-class GCLH
+class Clash
 {
     public $flag = 'gclh';
     private $servers;
@@ -148,6 +148,8 @@ class GCLH
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-headers'] = ['Host' => $wsSettings['headers']['Host']];
             }
+            $array['max-early-data'] = 4096;
+            $array['early-data-header-name'] = 'Sec-WebSocket-Protocol';
         }
         if ($server['network'] === 'grpc') {
             $array['network'] = 'grpc';
