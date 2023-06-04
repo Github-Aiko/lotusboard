@@ -105,7 +105,8 @@ class General
         $query = http_build_query([
             'allowInsecure' => $server['allow_insecure'],
             'peer' => $server['server_name'],
-            'sni' => $server['server_name']
+            'sni' => $server['server_name'],
+            'fp' => 'randomized'
         ]);
         $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?{$query}#{$name}";
         $uri .= "\r\n";
