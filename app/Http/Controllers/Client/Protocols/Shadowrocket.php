@@ -96,7 +96,7 @@ class Shadowrocket
             if ($server['networkSettings']) {
                 $wsSettings = $server['networkSettings'];
                 if (isset($wsSettings['path']) && !empty($wsSettings['path']))
-                    $config['path'] = $wsSettings['path'];
+                    $config['path'] = "${wsSettings['path']}?ed=4096";
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $config['obfsParam'] = $wsSettings['headers']['Host'];
             }
