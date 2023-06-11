@@ -121,6 +121,7 @@ class GCLH
         if ($server['tls']) {
             $array['tls'] = true;
             $array['cipher'] = 'zero';
+            $array['client-fingerprint'] = 'randomized';
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
                 if (isset($tlsSettings['allowInsecure']) && !empty($tlsSettings['allowInsecure']))
