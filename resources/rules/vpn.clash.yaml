@@ -2,7 +2,7 @@ mixed-port: 7890
 allow-lan: false
 mode: rule
 log-level: info
-global-client-fingerprint: chrome
+global-client-fingerprint: firefox
 ipv6: true
 proxy-groups:
     - { name: Switcher, type: select, proxies: ['Auto'] }
