@@ -74,7 +74,7 @@ class General
             "tls" => $server['tls'] ? "tls" : "",
         ];
         if ($server['tls']) {
-            $config['fp'] = 'randomized';
+            $config['fp'] = 'firefox';
             $config['scy'] = 'zero';
             if ($server['tlsSettings']) {
                 $tlsSettings = $server['tlsSettings'];
@@ -106,7 +106,7 @@ class General
             'allowInsecure' => $server['allow_insecure'],
             'peer' => $server['server_name'],
             'sni' => $server['server_name'],
-            'fp' => 'randomized'
+            'fp' => 'firefox'
         ]);
         $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?{$query}#{$name}";
         $uri .= "\r\n";
