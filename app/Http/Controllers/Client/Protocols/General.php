@@ -122,9 +122,8 @@ class General
         $query = http_build_query([
             'protocol' => 'udp',
             'auth' => $password,
-            'insecure' => $server['allow_insecure'],
+            'insecure' => $server['insecure'],
             'peer' => $server['server_name'],
-            'sni' => $server['server_name'],
             'upmbps' => $server['up_mbps'],
             'downmbps' => $server['up_mbps'],
             'alpn' => 'h3',
