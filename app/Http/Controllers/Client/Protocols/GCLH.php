@@ -190,11 +190,12 @@ class GCLH
         $array['port'] = $server['port'];
         $array['auth_str'] = $password;
         $array['obfs'] = $server['server_key'];
+        $array['alpn'] = '["h3"]';
         $array['protocol'] = 'udp';
         $array['up'] = $server['up_mbps'];
         $array['down'] = $server['down_mbps'];
         if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
-        if (!empty($server['allow_insecure'])) $array['skip-cert-verify'] = ($server['allow_insecure'] ? true : false);
+        $array['skip-cert-verify'] = !empty($server['insecure']) ? true : false;
         return $array;
     }
 
