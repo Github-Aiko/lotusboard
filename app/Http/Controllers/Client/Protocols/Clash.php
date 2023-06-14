@@ -48,6 +48,10 @@ class Clash
                 array_push($proxy, self::buildTrojan($user['uuid'], $item));
                 array_push($proxies, $item['name']);
             }
+            if ($item['type'] === 'hysteria') {
+                array_push($proxy, self::buildHysteria($user['uuid'], $item));
+                array_push($proxies, $item['name']);
+            }
         }
 
         $config['proxies'] = array_merge($config['proxies'] ? $config['proxies'] : [], $proxy);
@@ -172,6 +176,23 @@ class Clash
         $array['port'] = $server['port'];
         $array['password'] = $password;
         $array['udp'] = true;
+        if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
+        if (!empty($server['allow_insecure'])) $array['skip-cert-verify'] = ($server['allow_insecure'] ? true : false);
+        return $array;
+    }
+
+    public static function buildHysteria($password, $server)
+    {
+     	$array = [];
+        $array['name'] = $server['name'];
+        $array['type'] = 'hysteria';
+        $array['server'] = $server['host'];
+        $array['port'] = $server['port'];
+        $array['auth_str'] = $password;
+        $array['obfs'] = $server['server_key'];
+        $array['protocol'] = 'udp';
+        $array['up'] = $server['up_mbps'];
+        $array['down'] = $server['down_mbps'];
         if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
         if (!empty($server['allow_insecure'])) $array['skip-cert-verify'] = ($server['allow_insecure'] ? true : false);
         return $array;
