@@ -190,7 +190,6 @@ class GCLH
         $array['port'] = $server['port'];
         $array['auth_str'] = $password;
 //        $array['obfs'] = $server['server_key'];
-        $array['alpn'] = '["h3"]';
         $array['protocol'] = 'udp';
         $array['up'] = $server['up_mbps'];
         $array['down'] = $server['down_mbps'];
