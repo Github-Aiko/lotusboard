@@ -118,6 +118,7 @@ class General
 
     public static function buildHysteria($password, $server)
     {
+        $remote = filter_var($server['host'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? '[' . $server['host'] . ']' : $server['host'];
      	$name = rawurlencode($server['name']);
         $query = http_build_query([
             'protocol' => 'udp',
@@ -128,7 +129,7 @@ class General
             'downmbps' => $server['up_mbps']
 //            'obfsParam' => $server['server_key']
         ]);
-        $uri = "hysteria://{$server['host']}:{$server['port']}?{$query}#{$name}";
+        $uri = "hysteria://{$remote}:{$server['port']}?{$query}#{$name}";
         $uri .= "\r\n";
         return $uri;
     }
