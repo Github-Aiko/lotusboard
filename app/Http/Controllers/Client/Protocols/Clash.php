@@ -189,7 +189,7 @@ class Clash
         $array['server'] = $server['host'];
         $array['port'] = $server['port'];
         $array['auth_str'] = $password;
-        $array['obfs'] = $server['server_key'];
+//        $array['obfs'] = $server['server_key'];
         $array['alpn'] = '["h3"]';
         $array['protocol'] = 'udp';
         $array['up'] = $server['up_mbps'];

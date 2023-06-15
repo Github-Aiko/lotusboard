@@ -127,7 +127,7 @@ class General
             'upmbps' => $server['up_mbps'],
             'downmbps' => $server['up_mbps'],
             'alpn' => 'h3',
-            'obfsParam' => $server['server_key']
+//            'obfsParam' => $server['server_key']
         ]);
         $uri = "hysteria://{$server['host']}:{$server['port']}?{$query}#{$name}";
         $uri .= "\r\n";
