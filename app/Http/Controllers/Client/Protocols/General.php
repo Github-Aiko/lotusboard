@@ -125,8 +125,7 @@ class General
             'insecure' => $server['insecure'],
             'peer' => $server['server_name'],
             'upmbps' => $server['up_mbps'],
-            'downmbps' => $server['up_mbps'],
-            'alpn' => 'h3',
+            'downmbps' => $server['up_mbps']
 //            'obfsParam' => $server['server_key']
         ]);
         $uri = "hysteria://{$server['host']}:{$server['port']}?{$query}#{$name}";
