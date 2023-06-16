@@ -172,7 +172,7 @@ class StatController extends Controller
             'shadowsocks' => ServerShadowsocks::where('parent_id', null)->get()->toArray(),
             'v2ray' => ServerVmess::where('parent_id', null)->get()->toArray(),
             'trojan' => ServerTrojan::where('parent_id', null)->get()->toArray(),
-            'vmess' => ServerVmess::where('parent_id', null)->get()->toArray()
+            'vmess' => ServerVmess::where('parent_id', null)->get()->toArray(),
             'hysteria' => ServerHysteria::where('parent_id', null)->get()->toArray()
         ];
         $startAt = strtotime('-1 day', strtotime(date('Y-m-d')));
