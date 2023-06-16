@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\CommissionLog;
 use App\Models\ServerShadowsocks;
 use App\Models\ServerTrojan;
+use App\Models\ServerHysteria;
 use App\Models\StatUser;
 use App\Services\ServerService;
 use App\Services\StatisticalService;
@@ -172,6 +173,7 @@ class StatController extends Controller
             'v2ray' => ServerVmess::where('parent_id', null)->get()->toArray(),
             'trojan' => ServerTrojan::where('parent_id', null)->get()->toArray(),
             'vmess' => ServerVmess::where('parent_id', null)->get()->toArray()
+            'Hysteria' => ServerHysteria::where('parent_id', null)->get()->toArray()
         ];
         $startAt = strtotime('-1 day', strtotime(date('Y-m-d')));
         $endAt = strtotime(date('Y-m-d'));
