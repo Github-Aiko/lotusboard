@@ -48,6 +48,10 @@ class Clash
                 array_push($proxy, self::buildTrojan($user['uuid'], $item));
                 array_push($proxies, $item['name']);
             }
+            if ($item['type'] === 'hysteria') {
+                array_push($proxy, self::buildHysteria($user['uuid'], $item));
+                array_push($proxies, $item['name']);
+            }
         }
 
         $config['proxies'] = array_merge($config['proxies'] ? $config['proxies'] : [], $proxy);
@@ -68,6 +72,10 @@ class Clash
             if ($isFilter) continue;
             $config['proxy-groups'][$k]['proxies'] = array_merge($config['proxy-groups'][$k]['proxies'], $proxies);
         }
+        $config['proxy-groups'] = array_filter($config['proxy-groups'], function($group) {
+            return $group['proxies'];
+        });
+        $config['proxy-groups'] = array_values($config['proxy-groups']);
         // Force the current subscription domain to be a direct rule
         $subsDomain = $_SERVER['HTTP_HOST'];
         if ($subsDomain) {
@@ -82,12 +90,12 @@ class Clash
     public static function buildShadowsocks($password, $server)
     {
         if ($server['cipher'] === '2022-blake3-aes-128-gcm') {
-            $serverKey = Helper::getShadowsocksServerKey($server['created_at'], 16);
+            $serverKey = Helper::getServerKey($server['created_at'], 16);
             $userKey = Helper::uuidToBase64($password, 16);
             $password = "{$serverKey}:{$userKey}";
         }
         if ($server['cipher'] === '2022-blake3-aes-256-gcm') {
-            $serverKey = Helper::getShadowsocksServerKey($server['created_at'], 32);
+            $serverKey = Helper::getServerKey($server['created_at'], 32);
             $userKey = Helper::uuidToBase64($password, 32);
             $password = "{$serverKey}:{$userKey}";
         }
@@ -125,17 +133,22 @@ class Clash
                     $array['servername'] = $tlsSettings['serverName'];
             }
         }
+        if ($server['network'] === 'tcp') {
+            $tcpSettings = $server['networkSettings'];
+            if (isset($tcpSettings['header']['type'])) $array['network'] = $tcpSettings['header']['type'];
+            if (isset($tcpSettings['header']['request']['path'][0])) $array['http-opts']['path'] = $tcpSettings['header']['request']['path'][0];
+        }
         if ($server['network'] === 'ws') {
             $array['network'] = 'ws';
             if ($server['networkSettings']) {
                 $wsSettings = $server['networkSettings'];
                 $array['ws-opts'] = [];
                 if (isset($wsSettings['path']) && !empty($wsSettings['path']))
-                    $array['ws-opts']['path'] = "{$wsSettings['path']}?ed=4096";
+                    $array['ws-opts']['path'] = "${wsSettings['path']}?ed=4096";
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-opts']['headers'] = ['Host' => $wsSettings['headers']['Host']];
                 if (isset($wsSettings['path']) && !empty($wsSettings['path']))
-                    $array['ws-path'] = "{$wsSettings['path']}?ed=4096";
+                    $array['ws-path'] = "${wsSettings['path']}?ed=4096";
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-headers'] = ['Host' => $wsSettings['headers']['Host']];
             }
@@ -165,6 +178,23 @@ class Clash
         $array['udp'] = true;
         if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
         if (!empty($server['allow_insecure'])) $array['skip-cert-verify'] = ($server['allow_insecure'] ? true : false);
+        return $array;
+    }
+
+    public static function buildHysteria($password, $server)
+    {
+     	$array = [];
+        $array['name'] = $server['name'];
+        $array['type'] = 'hysteria';
+        $array['server'] = $server['host'];
+        $array['port'] = $server['port'];
+        $array['auth_str'] = $password;
+//        $array['obfs'] = $server['server_key'];
+        $array['protocol'] = 'udp';
+        $array['up'] = $server['up_mbps'];
+        $array['down'] = $server['down_mbps'];
+        if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
+        $array['skip-cert-verify'] = !empty($server['insecure']) ? true : false;
         return $array;
     }
 

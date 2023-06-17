@@ -3,7 +3,7 @@ allow-lan: false
 mode: rule
 log-level: info
 ipv6: true
-global-client-fingerprint: chrome
+global-client-fingerprint: firefox
 sniffer:
   enable: true
   override-destination: true

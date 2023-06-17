@@ -1,5 +1,7 @@
 # Lotusboard
 
+# Go latest-release branch for latest stable, main is for develop purpose
+
 # Modified v2board, probably enhancement
 
 I have no intention in breaking open source protocols, but i don't understand them, so if you have some suggestion on this please tell me in issue

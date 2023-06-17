@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Client\Protocols\V2rayN;
+use App\Http\Controllers\Client\Protocols\General;
 use App\Http\Controllers\Controller;
 use App\Services\ServerService;
+use App\Utils\Helper;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 
@@ -23,7 +24,7 @@ class ClientController extends Controller
             $servers = $serverService->getAvailableServers($user);
             $this->setSubscribeInfoToServers($servers, $user);
             if ($flag) {
-                foreach (glob(app_path('Http//Controllers//Client//Protocols') . '/*.php') as $file) {
+                foreach (array_reverse(glob(app_path('Http//Controllers//Client//Protocols') . '/*.php')) as $file) {
                     $file = 'App\\Http\\Controllers\\Client\\Protocols\\' . basename($file, '.php');
                     $class = new $file($user, $servers);
                     if (strpos($flag, $class->flag) !== false) {
@@ -31,10 +32,8 @@ class ClientController extends Controller
                     }
                 }
             }
-            // todo 1.5.3 remove
-            $class = new V2rayN($user, $servers);
+            $class = new General($user, $servers);
             die($class->handle());
-            die('Not supported client');
         }
     }
 
@@ -42,22 +41,22 @@ class ClientController extends Controller
     {
         if (!isset($servers[0])) return;
         if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
-        $useTraffic = round($user['u'] / (1024*1024*1024), 2) + round($user['d'] / (1024*1024*1024), 2);
-        $totalTraffic = round($user['transfer_enable'] / (1024*1024*1024), 2);
-        $remainingTraffic = $totalTraffic - $useTraffic;
-        $expiredDate = $user['expired_at'] ? date('Y-m-d', $user['expired_at']) : 'Effective all the time';
+        $useTraffic = $user['u'] + $user['d'];
+        $totalTraffic = $user['transfer_enable'];
+        $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
+        $expiredDate = $user['expired_at'] ? date('Y-m-d', $user['expired_at']) : 'No expiration';
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "expired in {$expiredDate}",
+            'name' => "Expired at {$expiredDate}",
         ]));
         if ($resetDay) {
             array_unshift($servers, array_merge($servers[0], [
-                'name' => "Reset usage in：{$resetDay} day(s)",
+                'name' => "Reset usage after {$resetDay} day(s)",
             ]));
         }
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "Remain：{$remainingTraffic} GB",
+            'name' => "Remain: {$remainingTraffic}",
         ]));
     }
 }
