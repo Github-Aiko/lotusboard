@@ -1,4 +1,4 @@
-# Lotusboad
+# Lotusboard
 
 ### UserManual
 
