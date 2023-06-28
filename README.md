@@ -1,5 +1,9 @@
 # Lotusboad
 
+### UserManual
+
+[WIKI](https://github.com/lotusproxy/lotusboard-docker/wiki)
+
 ### Go latest-release branch for latest stable, main is for develop purpose
 
 # Modified v2board, probably enhancement
