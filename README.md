@@ -1,7 +1,7 @@
 # Lotusboard
 ### UserManual | 用戶手冊
 
-[WIKI](https://github.com/lotusproxy/lotusboard-docker/wiki)
+[WIKI](https://lotusproxy.github.io)
 
 ### Go latest-release branch for latest stable, main is for develop purpose | 转到latest-stable分支以获得最新稳定版本，main用于开发目的
 
