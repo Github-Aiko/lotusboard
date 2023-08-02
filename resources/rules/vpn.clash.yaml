@@ -16,7 +16,10 @@ sniffer:
 dns:
     enable: true
     listen: 0.0.0.0:8853
-    enhanced-mode: redir-host
+#    enhanced-mode: redir-host
+    enhanced-mode: fake-ip
+    fake-ip-range: 198.18.0.1/16
+    use-hosts: true
     nameserver: ['tls://1.1.1.1', 'tls://1.0.0.1', 'https://1.1.1.1/dns-query', 'https://1.0.0.1/dns-query']
     ipv6: true
 rules:
